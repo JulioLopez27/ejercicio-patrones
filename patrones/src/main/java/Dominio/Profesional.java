@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public abstract class Profesional {
+    private int idProfesional;
     private String nombre;
     private String correo;
     private List<Turno> turnos;
