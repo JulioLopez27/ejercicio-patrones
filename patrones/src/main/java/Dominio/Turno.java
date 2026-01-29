@@ -1,19 +1,22 @@
 package Dominio;
 
+import java.time.LocalDateTime;
+
 public class Turno {
     private int idTurno;
     private EstadoTurno estado;
-    private String FechaYHora;
+    private LocalDateTime FechaYHora;
     private Paciente paciente;
     private Profesional doctor;
 
-    public Turno(EstadoTurno estado, String fechaYHora, Paciente paciente, Profesional doctor) {
-        this.estado = estado;
+    public Turno(Paciente paciente, Profesional doctor, LocalDateTime fechaYHora) {
+        this.estado = EstadoTurno.CONFIRMADO; //estado inicial
         FechaYHora = fechaYHora;
         this.paciente = paciente;
         this.doctor = doctor;
     }
 
+    // Comportamientos del turno
     public void confirmar() {
         this.estado = estado.confirmar();
     };
@@ -34,13 +37,15 @@ public class Turno {
 
     private void agregarObservador() {
     };
-
     // #region
+    public int getIdTurno() {
+        return idTurno;
+    }
     public EstadoTurno getEstado() {
         return estado;
     }
 
-    public String getFechaYHora() {
+    public LocalDateTime getFechaYHora() {
         return FechaYHora;
     }
 

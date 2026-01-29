@@ -4,10 +4,10 @@ public class Paciente {
     private String nombre;
     private String apellido;
     private String correo;
-    private String numSocio; //num identificador unico
+    private int numSocio; //num identificador unico
 
     // Constructor
-    public Paciente(String nombre, String apellido, String correo, String numSocio) {
+    public Paciente(String nombre, String apellido, String correo, int numSocio) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
@@ -40,7 +40,7 @@ public class Paciente {
         return correo;
     }
 
-    public String getNumSocio() {
+    public int getNumSocio() {
         return numSocio;
     }
     // #endregion

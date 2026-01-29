@@ -1,5 +1,7 @@
 package Dominio;
 
+import java.time.LocalDateTime;
+
 public class Pediatra extends Profesional {
 
     public Pediatra(String p_nombre, String p_correo) {
@@ -8,14 +10,18 @@ public class Pediatra extends Profesional {
 
     @Override
     public void verificiarDisponibilidad() {
-       
+
     }
 
     @Override
     public void asignarTurno() {
-        
+
     }
 
+    @Override
+    public boolean estaDisponible(LocalDateTime fechaHora) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'estaDisponible'");
+    }
 
-    
 }

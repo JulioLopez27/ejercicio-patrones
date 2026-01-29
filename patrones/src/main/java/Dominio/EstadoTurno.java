@@ -8,7 +8,7 @@ public enum EstadoTurno {
     CONFIRMADO {
         @Override
         public EstadoTurno confirmar() {
-            return this;
+            throw new TransicionEstadoInvalidaException("CONFIRMADO", "CONFIRMADO");
         }
 
         @Override
@@ -30,7 +30,7 @@ public enum EstadoTurno {
 
         @Override
         public EstadoTurno reprogramar() {
-            return this;
+            throw new TransicionEstadoInvalidaException("REPROGRAMADO", "REPROGRAMADO");
         }
 
         @Override

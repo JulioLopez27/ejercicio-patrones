@@ -1,5 +1,7 @@
 package Dominio;
 
+import java.time.LocalDateTime;
+
 public class Fisioterapeuta extends Profesional {
 public Fisioterapeuta(String p_nombre, String p_correo) {
         super(p_nombre, p_correo);
@@ -14,5 +16,11 @@ public Fisioterapeuta(String p_nombre, String p_correo) {
     public void asignarTurno() {
         
         
+    }
+
+    @Override
+    public boolean estaDisponible(LocalDateTime fechaHora) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'estaDisponible'");
     }
 }
