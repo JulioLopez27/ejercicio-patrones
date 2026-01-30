@@ -1,6 +1,7 @@
 package Dominio;
 
 import Exceptions.TransicionEstadoInvalidaException;
+
 //El enum declara que se puede hacer
 //cada estado decide como se hace
 public enum EstadoTurno {
@@ -21,6 +22,11 @@ public enum EstadoTurno {
             return CANCELADO;
         }
 
+        @Override
+        public boolean ocupaHorario() {
+            return true;
+        }
+
     },
     REPROGRAMADO {
         @Override
@@ -37,6 +43,11 @@ public enum EstadoTurno {
         public EstadoTurno cancelar() {
             return CANCELADO;
         }
+
+        @Override
+        public boolean ocupaHorario() {
+            return false;
+        }
     },
 
     CANCELADO {
@@ -44,13 +55,20 @@ public enum EstadoTurno {
         public EstadoTurno confirmar() {
             throw new TransicionEstadoInvalidaException("CANCELADO", "CONFIRMADO");
         }
+
         @Override
         public EstadoTurno reprogramar() {
             throw new TransicionEstadoInvalidaException("CANCELADO", "REPROGRAMADO");
         }
+
         @Override
         public EstadoTurno cancelar() {
             throw new TransicionEstadoInvalidaException("CANCELADO", "CANCELADO");
+        }
+
+        @Override
+        public boolean ocupaHorario() {
+            return false;
         }
     };
 
@@ -59,5 +77,8 @@ public enum EstadoTurno {
     public abstract EstadoTurno reprogramar();
 
     public abstract EstadoTurno cancelar();
+
+    //sirve para decidir si el turno ocupa horario o no
+    public abstract boolean ocupaHorario();
 
 }

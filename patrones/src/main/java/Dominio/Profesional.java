@@ -8,18 +8,23 @@ public abstract class Profesional {
     private int idProfesional;
     private String nombre;
     private String correo;
-    private List<Turno> turnos;
+    protected List<Turno> turnos;
 
-    public Profesional() {
-    }
 
-    public Profesional(String p_nombre, String p_correo) {
+    protected Profesional(String p_nombre, String p_correo) {
         this.nombre = p_nombre;
         this.correo = p_correo;
         this.turnos = new ArrayList<>();
     }
 
-    public abstract boolean estaDisponible(LocalDateTime fechaHora);
+    public boolean estaDisponible(LocalDateTime fechaHora){
+        for(Turno t: turnos){
+            if(t.getEstado().ocupaHorario() && t.getFechaYHora().equals(fechaHora)){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public abstract void verificiarDisponibilidad();
 
