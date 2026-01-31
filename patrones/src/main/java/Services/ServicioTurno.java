@@ -3,17 +3,17 @@ package Services;
 import Dominio.Turno;
 import Dominio.Paciente;
 import Dominio.Profesional;
-
-import interfaces.PoliticasDeAtencion.IPoliticaAtencion;
-import interfaces.PoliticasDeAtencion.PoliticaParticular;
-import interfaces.PoliticasDeAtencion.PoliticaMutualista;
-import interfaces.PoliticasDeAtencion.PoliticaUrgencia;
-import interfaces.PoliticasDeAtencion.IPoliticaCancelarTurno;
-import interfaces.PoliticasDeAtencion.PoliticaAntecipacionMinima;
-import Exceptions.PacienteNoEncontradoException;
 import Exceptions.ProfesionalNoDisponibleException;
 import Exceptions.ProfesionalNoEncontradoException;
-import Exceptions.TurnoNoEncontradoException;
+import Exceptions.Dominio.PacienteNoEncontradoException;
+import Exceptions.Dominio.TurnoNoEncontradoException;
+import interfaces.Politicas.Atencion.PoliticaMutualista;
+import interfaces.Politicas.Atencion.PoliticaParticular;
+import interfaces.Politicas.Atencion.PoliticaUrgencia;
+import interfaces.Politicas.Validacion.IPoliticaCancelarTurno;
+import interfaces.Politicas.Validacion.IPoliticaCreacionTurno;
+import interfaces.Politicas.Validacion.PoliticaAntecipacionMinima;
+import interfaces.Politicas.Validacion.PoliticaHorarioLaboral;
 
 import Persistencia.RepositorioTurnos;
 import Persistencia.RepositorioPacientes;
@@ -25,7 +25,7 @@ import java.util.List;
 public class ServicioTurno {
     // Tiene la coleccion de todos los turnos en el sistema
     // en caso de no encontrar el turno, devuelve TurnoNoEncontradoException
-    private List<IPoliticaAtencion> politicasAtencion;
+    private List<IPoliticaCreacionTurno> politicaCreacion;
     private List<IPoliticaCancelarTurno> politicasCancelacion;
     private RepositorioPacientes repoPacientes;
     private RepositorioProfesionales repoProfesionales;
@@ -36,8 +36,13 @@ public class ServicioTurno {
         this.repoPacientes = p_repoPaciente;
         this.repoProfesionales = p_repoProfesionales;
         this.repoTurnos = p_repoTurnos;
-        this.politicasAtencion = List.of(new PoliticaParticular(), new PoliticaMutualista(), new PoliticaUrgencia());
-        this.politicasCancelacion = List.of(new PoliticaAntecipacionMinima());
+        this.politicaCreacion = List.of(
+                new PoliticaParticular(),
+                new PoliticaMutualista(),
+                new PoliticaUrgencia());
+                
+        this.politicasCancelacion = List.of(
+                new PoliticaAntecipacionMinima());
     }
 
     public Turno crearTurno(int numSocio, int IdProfesional, LocalDateTime fechaHora) {
@@ -56,7 +61,7 @@ public class ServicioTurno {
         }
 
         // aplica la politica de atencion
-        for (IPoliticaAtencion politica : politicasAtencion) {
+        for (IPoliticaCreacionTurno politica : politicaCreacion) {
             politica.validarCreacionTurno(paciente, profesional, fechaHora);
         }
 
