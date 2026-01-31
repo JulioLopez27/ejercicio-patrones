@@ -8,6 +8,10 @@ public class TurnoController {
 
     private FachadaSistema fachada = new FachadaSistema();
 
+    public TurnoController(FachadaSistema fachada) {
+        this.fachada = fachada;
+    }
+
     public void crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
         try {
             fachada.crearTurno(numSocio, idMedico, fechaHora);
@@ -18,8 +22,13 @@ public class TurnoController {
 
     }
 
-    public void cancelarTurno() {
-        // Lógica para cancelar un turno}
+    public String cancelarTurno(int idTurno) {
+        try {
+            fachada.cancelarTurno(idTurno);
+            return "Turno cancelado correctamente";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     public void confirmarTurno() {
