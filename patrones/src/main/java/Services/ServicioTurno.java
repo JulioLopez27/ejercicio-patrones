@@ -8,10 +8,12 @@ import interfaces.PoliticasDeAtencion.IPoliticaAtencion;
 import interfaces.PoliticasDeAtencion.PoliticaParticular;
 import interfaces.PoliticasDeAtencion.PoliticaMutualista;
 import interfaces.PoliticasDeAtencion.PoliticaUrgencia;
-
+import interfaces.PoliticasDeAtencion.IPoliticaCancelarTurno;
+import interfaces.PoliticasDeAtencion.PoliticaAntecipacionMinima;
 import Exceptions.PacienteNoEncontradoException;
 import Exceptions.ProfesionalNoDisponibleException;
 import Exceptions.ProfesionalNoEncontradoException;
+import Exceptions.TurnoNoEncontradoException;
 
 import Persistencia.RepositorioTurnos;
 import Persistencia.RepositorioPacientes;
@@ -24,17 +26,18 @@ public class ServicioTurno {
     // Tiene la coleccion de todos los turnos en el sistema
     // en caso de no encontrar el turno, devuelve TurnoNoEncontradoException
     private List<IPoliticaAtencion> politicasAtencion;
+    private List<IPoliticaCancelarTurno> politicasCancelacion;
     private RepositorioPacientes repoPacientes;
     private RepositorioProfesionales repoProfesionales;
     private RepositorioTurnos repoTurnos;
 
-    
     public ServicioTurno(RepositorioPacientes p_repoPaciente, RepositorioProfesionales p_repoProfesionales,
             RepositorioTurnos p_repoTurnos) {
         this.repoPacientes = p_repoPaciente;
         this.repoProfesionales = p_repoProfesionales;
         this.repoTurnos = p_repoTurnos;
         this.politicasAtencion = List.of(new PoliticaParticular(), new PoliticaMutualista(), new PoliticaUrgencia());
+        this.politicasCancelacion = List.of(new PoliticaAntecipacionMinima());
     }
 
     public Turno crearTurno(int numSocio, int IdProfesional, LocalDateTime fechaHora) {
@@ -62,6 +65,17 @@ public class ServicioTurno {
         repoTurnos.guardar(nuevoTurno);
         // Devolver el turno creado
         return nuevoTurno;
+    }
+
+    public void cancelarTurno(int idTurno) {
+        // Lógica para cancelar un turno
+        Turno turno = repoTurnos.buscarPorId(idTurno)
+                .orElseThrow(() -> new TurnoNoEncontradoException());
+        for (IPoliticaCancelarTurno p : politicasCancelacion) {
+            p.validarCancelacionTurno(turno);
+        }
+        turno.cancelar();
+        repoTurnos.guardar(turno);
     }
 
 }
