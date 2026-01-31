@@ -1,5 +1,8 @@
 package interfaces.Politicas.Validacion;
 
-public interface IPoliticaReprogramacionTurno {
+import Dominio.Turno;
+import java.time.LocalDateTime;
 
+public interface IPoliticaReprogramacionTurno {
+    void validarReprogramacion(Turno t, LocalDateTime nuevaFechaHora);
 }

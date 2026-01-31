@@ -1,7 +1,7 @@
 package interfaces.Politicas.Validacion;
 
 import Dominio.Turno;
-import Exceptions.CancelacionInvalidaException;
+import Exceptions.Dominio.CancelacionInvalidaException;
 
 import java.time.LocalDateTime;
 
