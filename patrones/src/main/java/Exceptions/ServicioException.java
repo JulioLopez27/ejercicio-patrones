@@ -6,4 +6,8 @@ public class ServicioException extends RuntimeException {
         super(mensaje);
     }
 
+    public ServicioException(String mensaje, Throwable cause) {
+        super(mensaje, cause);
+    }
+
 }
