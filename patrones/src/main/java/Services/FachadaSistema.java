@@ -31,4 +31,8 @@ public class FachadaSistema {
         servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
     }
 
+    public void cancelarTurno(int idTurno){
+        servicioTurno.cancelarTurno(idTurno);
+    }
+
 }
