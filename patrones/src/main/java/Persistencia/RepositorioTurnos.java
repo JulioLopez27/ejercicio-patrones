@@ -1,25 +1,31 @@
 package Persistencia;
 
 import Dominio.Turno;
+import Exceptions.Persistencia.GuardadoException;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class RepositorioTurnos {
 
     private List<Turno> turnos = new ArrayList<>();
 
     public void guardar(Turno nuevoTurno) {
-        turnos.add(nuevoTurno);
+        try {
+            turnos.add(nuevoTurno);
+        } catch (Exception e) {
+            throw new GuardadoException("Error al guardar el turno. " + e);
+        }
     }
 
-    public Turno buscarPorId(int idTurno) {
+    public Optional<Turno> buscarPorId(int idTurno) {
         for (Turno t : turnos) {
             if (t.getIdTurno() == idTurno) {
-                return t;
+                return Optional.of(t);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public List<Turno> obtenerTurnos() {
