@@ -1,6 +1,6 @@
 package Dominio;
 
-import Exceptions.TransicionEstadoInvalidaException;
+import Exceptions.Dominio.TransicionEstadoInvalidaException;
 
 //El enum declara que se puede hacer
 //cada estado decide como se hace
