@@ -63,7 +63,7 @@ public enum EstadoTurno {
 
         @Override
         public EstadoTurno cancelar() {
-            throw new TransicionEstadoInvalidaException("CANCELADO", "CANCELADO");
+            throw new TransicionEstadoInvalidaException("El turno ya está cancelado");
         }
 
         @Override
