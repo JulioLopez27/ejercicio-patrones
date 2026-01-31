@@ -1,4 +1,4 @@
-package Exceptions;
+package Exceptions.Dominio;
 
 public class TransicionEstadoInvalidaException extends DominioException {
 

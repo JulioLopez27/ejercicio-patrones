@@ -1,4 +1,4 @@
-package Exceptions;
+package Exceptions.Dominio;
 
 public class CancelacionInvalidaException extends DominioException {
     public CancelacionInvalidaException(String mensaje) {
