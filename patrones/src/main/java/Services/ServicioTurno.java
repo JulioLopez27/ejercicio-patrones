@@ -13,7 +13,7 @@ import interfaces.Politicas.Atencion.PoliticaUrgencia;
 import interfaces.Politicas.Validacion.IPoliticaCancelarTurno;
 import interfaces.Politicas.Validacion.IPoliticaCreacionTurno;
 import interfaces.Politicas.Validacion.PoliticaAntecipacionMinima;
-import interfaces.Politicas.Validacion.PoliticaHorarioLaboral;
+
 
 import Persistencia.RepositorioTurnos;
 import Persistencia.RepositorioPacientes;
