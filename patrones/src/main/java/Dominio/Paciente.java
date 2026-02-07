@@ -1,16 +1,15 @@
 package Dominio;
 
 public class Paciente {
-    private String nombre;
-    private String apellido;
-    private String correo;
-    private int numSocio; //num identificador unico
+
+    private String nombre, correo, direccion;
+    private int numSocio; // num identificador unico
 
     // Constructor
-    public Paciente(String nombre, String apellido, String correo, int numSocio) {
+    public Paciente(String nombre, String correo, String direccion, int numSocio) {
         this.nombre = nombre;
-        this.apellido = apellido;
         this.correo = correo;
+        this.direccion = direccion;
         this.numSocio = numSocio;
     }
 
@@ -32,14 +31,12 @@ public class Paciente {
         return nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
     public String getCorreo() {
         return correo;
     }
-
+    public String getDireccion() {
+        return direccion;
+    }
     public int getNumSocio() {
         return numSocio;
     }

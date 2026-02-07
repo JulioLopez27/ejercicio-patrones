@@ -11,7 +11,11 @@ public class RepositorioPacientes {
     private List<Paciente> pacientes = new ArrayList<>();
 
     public void guardar(Paciente p) {
-        pacientes.add(p);
+        try {
+            pacientes.add(p);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al guardar el paciente: " + e.getMessage());
+        }
     }
 
     // TODO: optimizar a futuro

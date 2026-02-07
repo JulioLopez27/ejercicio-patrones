@@ -14,7 +14,7 @@ public class FachadaSistema {
 
     // inicializacion de los servicios
     private ServicioTurno servicioTurno = new ServicioTurno(repoPacientes, repoProfesionales, repoTurnos);
-    private ServicioPaciente servicioPaciente = new ServicioPaciente();
+    private ServicioPaciente servicioPaciente = new ServicioPaciente(repoPacientes);
     private ServicioProfesional servicioProfesional = new ServicioProfesional();
 
     // // singleton pattern
@@ -35,4 +35,8 @@ public class FachadaSistema {
         servicioTurno.cancelarTurno(idTurno);
     }
 
+
+    public void altaPaciente(int numSocio, String nombre, String correo, String direccion) {
+        servicioPaciente.altaPaciente(numSocio, nombre, correo, direccion);
+    }
 }
