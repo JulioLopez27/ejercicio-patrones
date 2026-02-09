@@ -3,30 +3,18 @@ package Dominio;
 public class Paciente {
 
     private String nombre, correo, direccion;
-    private int numSocio; // num identificador unico
+    private int numSocio, dni; // num identificador unico
+    private static int contadorSocios = 1;
 
     // Constructor
-    public Paciente(String nombre, String correo, String direccion, int numSocio) {
+    public Paciente(int dni, String nombre, String correo, String direccion) {
+        this.dni = dni;
         this.nombre = nombre;
         this.correo = correo;
         this.direccion = direccion;
-        this.numSocio = numSocio;
+        this.numSocio = contadorSocios++;
     }
 
-    public void ingresarPaciente() {
-        // Lógica para ingresar el paciente en el sistema
-    }
-
-    public void actualizarPaciente() {
-        // Lógica para actualizar la información del paciente
-    }
-
-    public void bajaPaciente() {
-        // Lógica para dar de baja al paciente en el sistema
-    }
-
-    // Getters
-    // #region
     public String getNombre() {
         return nombre;
     }
@@ -34,11 +22,26 @@ public class Paciente {
     public String getCorreo() {
         return correo;
     }
+
     public String getDireccion() {
         return direccion;
     }
+
     public int getNumSocio() {
         return numSocio;
     }
-    // #endregion
+
+    public int getDni() {
+        return dni;
+    }
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", numSocio=" + numSocio +
+                '}';
+    }
 }

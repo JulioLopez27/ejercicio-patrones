@@ -28,6 +28,15 @@ public class RepositorioPacientes {
         return Optional.empty();
     }
 
+    public Optional<Paciente> buscarPorDni(int dni) {
+        for (Paciente p : pacientes) {
+            if (p.getDni() == dni) {
+                return Optional.of(p);
+            }
+        }
+        return Optional.empty();
+    }
+
     public List<Paciente> obtenerTodos() {
         return pacientes;
     }

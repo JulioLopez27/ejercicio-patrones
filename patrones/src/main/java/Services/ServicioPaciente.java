@@ -11,16 +11,16 @@ public class ServicioPaciente {
         this.repoPacientes = servicioPaciente;
     }
 
-    public void altaPaciente(int numSocio, String nombre, String correo, String direccion) {
+    public Paciente altaPaciente(int dni, String nombre, String correo, String direccion) {
         // validaciones de datos
 
         // busqueda por numSocio, si existe, lanza una excepcion
-        if (repoPacientes.buscarPorId(numSocio).isPresent())
-            throw new RuntimeException("El paciente con numSocio: " + numSocio + " ya existe.");
+        if (repoPacientes.buscarPorDni(dni).isPresent())
+            throw new RuntimeException("El paciente con el dni: " + dni + " ya existe.");
 
-        Paciente nuevoPaciente = new Paciente(nombre, correo, direccion, numSocio);
+        Paciente nuevoPaciente = new Paciente(dni, nombre, correo, direccion);
         repoPacientes.guardar(nuevoPaciente);
-
+        return nuevoPaciente;
     }
 
 }

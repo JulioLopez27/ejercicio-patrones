@@ -2,13 +2,14 @@ package Services;
 
 import java.time.LocalDateTime;
 
+import Dominio.Paciente;
 import Persistencia.RepositorioPacientes;
 import Persistencia.RepositorioProfesionales;
 import Persistencia.RepositorioTurnos;
 
 public class FachadaSistema {
-    //inicializacion de los repositorios
-    private RepositorioPacientes repoPacientes= new RepositorioPacientes();
+    // inicializacion de los repositorios
+    private RepositorioPacientes repoPacientes = new RepositorioPacientes();
     private RepositorioProfesionales repoProfesionales = new RepositorioProfesionales();
     private RepositorioTurnos repoTurnos = new RepositorioTurnos();
 
@@ -21,22 +22,22 @@ public class FachadaSistema {
     // private static FachadaSistema fachada = null;
 
     // public static FachadaSistema getFachada() {
-    //     if (fachada == null) {
-    //         fachada = new FachadaSistema();
-    //     }
-    //     return fachada;
+    // if (fachada == null) {
+    // fachada = new FachadaSistema();
+    // }
+    // return fachada;
     // }
 
     public void crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
         servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
     }
 
-    public void cancelarTurno(int idTurno){
+    public void cancelarTurno(int idTurno) {
         servicioTurno.cancelarTurno(idTurno);
     }
 
-
-    public void altaPaciente(int numSocio, String nombre, String correo, String direccion) {
-        servicioPaciente.altaPaciente(numSocio, nombre, correo, direccion);
+    public void altaPaciente(int dni, String nombre, String correo, String direccion) {
+        Paciente p = servicioPaciente.altaPaciente(dni, nombre, correo, direccion);
+        System.out.println("Paciente creado con el N° de socio: " + p.getNumSocio());
     }
 }
