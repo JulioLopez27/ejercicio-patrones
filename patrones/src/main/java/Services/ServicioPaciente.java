@@ -1,5 +1,7 @@
 package Services;
 
+import java.util.List;
+
 import Dominio.Paciente;
 import Persistencia.RepositorioPacientes;
 
@@ -11,16 +13,21 @@ public class ServicioPaciente {
         this.repoPacientes = servicioPaciente;
     }
 
-    public Paciente altaPaciente(int dni, String nombre, String correo, String direccion) {
+    public Paciente altaPaciente(int documento, String nombre, String correo, String direccion) {
         // validaciones de datos
 
         // busqueda por numSocio, si existe, lanza una excepcion
-        if (repoPacientes.buscarPorDni(dni).isPresent())
-            throw new RuntimeException("El paciente con el dni: " + dni + " ya existe.");
+        if (repoPacientes.buscarPorDocumento(documento).isPresent())
+            throw new RuntimeException("El paciente con el documento: " + documento + " ya existe.");
 
-        Paciente nuevoPaciente = new Paciente(dni, nombre, correo, direccion);
+        Paciente nuevoPaciente = new Paciente(documento, nombre, correo, direccion);
         repoPacientes.guardar(nuevoPaciente);
         return nuevoPaciente;
+    }
+
+
+    public List<Paciente> listarPacientes(){
+        return repoPacientes.listarPacientes();
     }
 
 }

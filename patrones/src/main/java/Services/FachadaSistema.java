@@ -21,16 +21,6 @@ public class FachadaSistema {
     private ServicioPaciente servicioPaciente = new ServicioPaciente(repoPacientes);
     private ServicioProfesional servicioProfesional = new ServicioProfesional(repoProfesionales);
 
-    // // singleton pattern
-    // private static FachadaSistema fachada = null;
-
-    // public static FachadaSistema getFachada() {
-    // if (fachada == null) {
-    // fachada = new FachadaSistema();
-    // }
-    // return fachada;
-    // }
-
     // TURNOS
     public void crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
         servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
@@ -41,15 +31,20 @@ public class FachadaSistema {
     }
     // -----------------
 
-    // Pacientes
-    public void altaPaciente(int dni, String nombre, String correo, String direccion) {
-        Paciente p = servicioPaciente.altaPaciente(dni, nombre, correo, direccion);
+    // Pacientes---------------------------------------------------------------------------
+    public void altaPaciente(int documento, String nombre, String correo, String direccion) {
+        Paciente p = servicioPaciente.altaPaciente(documento, nombre, correo, direccion);
         System.out.println("Paciente creado con el N° de socio: " + p.getNumSocio());
     }
 
-    // Profesionales
-    public void altaProfesional(int dni, String nombre, String correo, TipoEspecialidad tipo) {
-        Profesional p = servicioProfesional.altaProfesional(dni, nombre, correo, tipo);
+    public List<Paciente> listarPacientes() {
+        List<Paciente> pacientes = servicioPaciente.listarPacientes();
+        return pacientes;
+    }
+
+    // Profesionales---------------------------------------------------------------------------------
+    public void altaProfesional(int documento, String nombre, String correo, TipoEspecialidad tipo) {
+        Profesional p = servicioProfesional.altaProfesional(documento, nombre, correo, tipo);
         System.out.println("Profesional creado con el identificador: " + p.getId());
     }
 

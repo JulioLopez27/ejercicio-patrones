@@ -1,15 +1,18 @@
 package Presentation;
 
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
 import Services.FachadaSistema;
 
 public class TurnoController {
 
-    private FachadaSistema fachada = new FachadaSistema();
+    private final FachadaSistema fachada;
+    private final Scanner sc;
 
-    public TurnoController(FachadaSistema fachada) {
-        this.fachada = fachada;
+    public TurnoController(FachadaSistema p_fachada, Scanner p_sc) {
+        this.fachada = p_fachada;
+        this.sc = p_sc;
     }
 
     public void crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {

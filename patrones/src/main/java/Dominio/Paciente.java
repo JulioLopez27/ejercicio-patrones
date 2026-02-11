@@ -3,12 +3,12 @@ package Dominio;
 public class Paciente {
 
     private String nombre, correo, direccion;
-    private int numSocio, dni; // num identificador unico
+    private int numSocio, documento; // num identificador unico
     private static int contadorSocios = 1;
 
     // Constructor
-    public Paciente(int dni, String nombre, String correo, String direccion) {
-        this.dni = dni;
+    public Paciente(int documento, String nombre, String correo, String direccion) {
+        this.documento = documento;
         this.nombre = nombre;
         this.correo = correo;
         this.direccion = direccion;
@@ -31,13 +31,13 @@ public class Paciente {
         return numSocio;
     }
 
-    public int getDni() {
-        return dni;
+    public int getDocumento() {
+        return documento;
     }
 
     @Override
     public String toString() {
-        return "Paciente{" +
+        return "Paciente { " +
                 "nombre='" + nombre + '\'' +
                 ", correo='" + correo + '\'' +
                 ", direccion='" + direccion + '\'' +
