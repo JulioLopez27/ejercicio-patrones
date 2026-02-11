@@ -28,9 +28,9 @@ public class RepositorioPacientes {
         return Optional.empty();
     }
 
-    public Optional<Paciente> buscarPorDni(int dni) {
+    public Optional<Paciente> buscarPorDocumento(int documento) {
         for (Paciente p : pacientes) {
-            if (p.getDni() == dni) {
+            if (p.getDocumento() == documento) {
                 return Optional.of(p);
             }
         }
@@ -39,6 +39,14 @@ public class RepositorioPacientes {
 
     public List<Paciente> obtenerTodos() {
         return pacientes;
+    }
+
+    public List<Paciente> listarPacientes() {
+        try {
+            return pacientes;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al listar pacientes: " + e.getMessage());
+        }
     }
 
 }
