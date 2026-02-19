@@ -23,7 +23,7 @@ public class Main {
             System.out.println("\n=== MENU ===");
             System.out.println("1 - Alta Paciente");
             System.out.println("2 - Alta Profesional");
-            System.out.println("3 - Reservar Turno (pendiente)");
+            System.out.println("3 - Reservar Turno");
             System.out.println("4 - Listar Pacientes");
             System.out.println("5 - Listar Profesionales");
             System.out.println("6 - Listar especialidades");
