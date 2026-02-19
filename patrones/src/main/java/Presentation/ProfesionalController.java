@@ -3,6 +3,8 @@ package Presentation;
 import java.util.List;
 import java.util.Scanner;
 
+import Dominio.Paciente;
+import Dominio.Profesional;
 import Dominio.TipoEspecialidad;
 import Services.FachadaSistema;
 
@@ -24,6 +26,18 @@ public class ProfesionalController {
             System.out.println((i + 1) + " - " + tipos.get(i));
         }
         return tipos;
+    }
+
+    public void listarProfesionales() {
+        System.out.println("\n=== LISTA DE PROFESIONALES ===");
+        List<Profesional> profesionales = fachada.listarProfesionales();
+        if (profesionales.isEmpty()) {
+            System.out.println("Aún no hay profesionales registrados.");
+        } else {
+            for (Profesional p : profesionales) {
+                System.out.println(p);
+            }
+        }
     }
 
     public void altaProfesional() {
