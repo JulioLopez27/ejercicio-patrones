@@ -37,7 +37,7 @@ public class RepositorioProfesionales {
         return Optional.empty();
     }
 
-    public List<Profesional> obtenerTodos() {
+    public List<Profesional> listarProfesionales() {
         return profesionales;
     }
 
