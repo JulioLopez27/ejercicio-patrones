@@ -4,7 +4,7 @@ import java.util.List;
 
 import Dominio.Profesional;
 import Dominio.TipoEspecialidad;
-
+import Exceptions.ProfesionalNoEncontradoException;
 import Persistencia.RepositorioProfesionales;
 
 public class ServicioProfesional {
@@ -22,7 +22,16 @@ public class ServicioProfesional {
         return nuevoProfesional;
     }
 
+    public List<Profesional> listarProfesionales() {
+            return repoProfesionales.listarProfesionales();
+    }
+
     public List<TipoEspecialidad> obtenerTiposEspecialidad() {
         return repoProfesionales.obtenerTipoEspecialidad();
+    }
+
+    public Profesional buscarPorId(int id) {
+        return repoProfesionales.buscarPorId(id)
+                .orElseThrow(() -> new ProfesionalNoEncontradoException("Profesional con el id: " + id + " no encontrado."));
     }
 }
