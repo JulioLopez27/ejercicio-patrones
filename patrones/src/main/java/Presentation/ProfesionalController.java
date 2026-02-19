@@ -3,7 +3,6 @@ package Presentation;
 import java.util.List;
 import java.util.Scanner;
 
-import Dominio.Paciente;
 import Dominio.Profesional;
 import Dominio.TipoEspecialidad;
 import Services.FachadaSistema;
