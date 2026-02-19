@@ -3,7 +3,9 @@ package Presentation;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import Dominio.Turno;
 import Services.FachadaSistema;
+import Utils.ValidadorFechas;
 
 public class TurnoController {
 
@@ -15,14 +17,25 @@ public class TurnoController {
         this.sc = p_sc;
     }
 
-    public void crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
+    public void crearTurno() {
+        System.out.println("\n === CREAR TURNO ===");
         try {
-            fachada.crearTurno(numSocio, idMedico, fechaHora);
+            System.out.println("Ingrese documento de identificación del paciente: ");
+            int numSocio = sc.nextInt();
+            sc.nextLine();
+
+            System.out.println("ID del médico: ");
+            int idMedico = sc.nextInt();
+            sc.nextLine();
+
+            LocalDateTime fechaHora = leerFechaValida();
+
+            Turno t = fachada.crearTurno(numSocio, idMedico, fechaHora);
+            System.out.println("Turno creado con éxito: " + t);
         } catch (Exception e) {
             // Manejo de excepciones (por ejemplo, mostrar un mensaje de error al usuario)
             System.out.println("Error al crear el turno: " + e.getMessage());
         }
-
     }
 
     public String cancelarTurno(int idTurno) {
@@ -42,4 +55,16 @@ public class TurnoController {
         // Lógica para listar todos los turnos
     }
 
+    // metodo auxuliar
+    private LocalDateTime leerFechaValida() {
+        while (true) {
+            try {
+                System.out.println("Fecha y hora (formato: dd-MM-yyyy HH:mm): ");
+                return ValidadorFechas.leerFecha(sc.nextLine());
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }
