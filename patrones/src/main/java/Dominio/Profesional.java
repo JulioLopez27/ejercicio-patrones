@@ -40,5 +40,15 @@ public class Profesional {
     public int getId() {
         return this.idProfesional;
     }
+@Override
+    public String toString() {
+        return "Profesional { " +
+                "idProfesional=" + idProfesional +
+                ", dni=" + dni +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", tipo=" + tipo +
+                '}';
+    }
 
 }
