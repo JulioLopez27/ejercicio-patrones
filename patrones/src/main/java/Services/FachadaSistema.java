@@ -6,9 +6,11 @@ import java.util.List;
 import Dominio.Paciente;
 import Dominio.Profesional;
 import Dominio.TipoEspecialidad;
+import Dominio.Turno;
 import Persistencia.RepositorioPacientes;
 import Persistencia.RepositorioProfesionales;
 import Persistencia.RepositorioTurnos;
+import Utils.CargaDatos;
 
 public class FachadaSistema {
     // inicializacion de los repositorios
@@ -17,13 +19,21 @@ public class FachadaSistema {
     private RepositorioTurnos repoTurnos = new RepositorioTurnos();
 
     // inicializacion de los servicios
-    private ServicioTurno servicioTurno = new ServicioTurno(repoPacientes, repoProfesionales, repoTurnos);
     private ServicioPaciente servicioPaciente = new ServicioPaciente(repoPacientes);
     private ServicioProfesional servicioProfesional = new ServicioProfesional(repoProfesionales);
+    private ServicioTurno servicioTurno = new ServicioTurno(repoTurnos, servicioPaciente, servicioProfesional);
+
+    public FachadaSistema() {
+        cargaDatosDummy();
+    }
+
+    private void cargaDatosDummy() {
+        new CargaDatos(repoPacientes, repoProfesionales);
+    }
 
     // TURNOS
-    public void crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
-        servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
+    public Turno crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
+       return servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
     }
 
     public void cancelarTurno(int idTurno) {
@@ -36,7 +46,7 @@ public class FachadaSistema {
         Paciente p = servicioPaciente.altaPaciente(documento, nombre, correo, direccion);
         System.out.println("Paciente creado con el N° de socio: " + p.getNumSocio());
     }
-
+//TODO: refactorizar
     public List<Paciente> listarPacientes() {
         List<Paciente> pacientes = servicioPaciente.listarPacientes();
         return pacientes;
@@ -46,6 +56,10 @@ public class FachadaSistema {
     public void altaProfesional(int documento, String nombre, String correo, TipoEspecialidad tipo) {
         Profesional p = servicioProfesional.altaProfesional(documento, nombre, correo, tipo);
         System.out.println("Profesional creado con el identificador: " + p.getId());
+    }
+
+    public List<Profesional> listarProfesionales() {
+        return servicioProfesional.listarProfesionales();
     }
 
     public List<TipoEspecialidad> obtenerTiposEspecialidad() {
