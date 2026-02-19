@@ -1,8 +1,7 @@
 package Exceptions.Dominio;
 
 public class PacienteNoEncontradoException extends DominioException {
-    public PacienteNoEncontradoException(String mensaje) {
-        super(mensaje);
+    public PacienteNoEncontradoException(String criterio) {
+        super("Paciente no encontrado (" + criterio + ") no encontrado. ");
     }
-
 }
