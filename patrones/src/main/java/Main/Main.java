@@ -15,7 +15,6 @@ public class Main {
 
         ProfesionalController profesionalController = new ProfesionalController(fachada, sc);
         PacienteController pacienteController = new PacienteController(fachada, sc);
-        @SuppressWarnings("unused")
         TurnoController turnoController = new TurnoController(fachada, sc);
 
         boolean salir = false;
@@ -27,7 +26,7 @@ public class Main {
             System.out.println("3 - Reservar Turno (pendiente)");
             System.out.println("4 - Listar Pacientes");
             System.out.println("5 - Listar Profesionales");
-            System.out.println(" - Listar especialidades");
+            System.out.println("6 - Listar especialidades");
             System.out.println("10 - Salir");
             System.out.print("Opcion: ");
 
@@ -39,13 +38,11 @@ public class Main {
 
                 case 2 -> profesionalController.altaProfesional();
 
-                case 3 -> {
-                    System.out.println("Reservar turno - NO IMPLEMENTADO");
-                }
+                case 3 -> turnoController.crearTurno();
 
                 case 4 -> pacienteController.listarPacientes();
 
-                // case 5 -> profesionalController.listarProfesionales();
+                case 5 -> profesionalController.listarProfesionales();
 
                 case 6 -> profesionalController.mostrarTiposEspecialidad();
 
