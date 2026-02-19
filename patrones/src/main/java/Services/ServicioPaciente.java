@@ -3,6 +3,8 @@ package Services;
 import java.util.List;
 
 import Dominio.Paciente;
+import Exceptions.Dominio.PacienteNoEncontradoException;
+import Exceptions.Dominio.PacienteRegistradoException;
 import Persistencia.RepositorioPacientes;
 
 public class ServicioPaciente {
@@ -18,16 +20,21 @@ public class ServicioPaciente {
 
         // busqueda por numSocio, si existe, lanza una excepcion
         if (repoPacientes.buscarPorDocumento(documento).isPresent())
-            throw new RuntimeException("El paciente con el documento: " + documento + " ya existe.");
+            throw new PacienteRegistradoException(documento);
 
         Paciente nuevoPaciente = new Paciente(documento, nombre, correo, direccion);
         repoPacientes.guardar(nuevoPaciente);
         return nuevoPaciente;
     }
 
-
-    public List<Paciente> listarPacientes(){
+    // TODO: implementar try-catch
+    public List<Paciente> listarPacientes() {
         return repoPacientes.listarPacientes();
+    }
+
+    public Paciente buscarPorId(int numSocio) {
+        return repoPacientes.buscarPorId(numSocio)
+                .orElseThrow(() -> new PacienteNoEncontradoException("número de socio: " + numSocio));
     }
 
 }
