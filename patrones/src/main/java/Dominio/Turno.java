@@ -5,15 +5,15 @@ import java.time.LocalDateTime;
 public class Turno {
     private int idTurno;
     private EstadoTurno estado;
-    private LocalDateTime FechaYHora;
+    private LocalDateTime fechaYHora;
     private Paciente paciente;
-    private Profesional doctor;
+    private Profesional profesional;
 
-    public Turno(Paciente paciente, Profesional doctor, LocalDateTime fechaYHora) {
-        this.estado = EstadoTurno.CONFIRMADO; //estado inicial
-        FechaYHora = fechaYHora;
+    public Turno(Paciente paciente, Profesional p_profesional, LocalDateTime fechaYHora) {
+        this.estado = EstadoTurno.CONFIRMADO; // estado inicial
+        this.fechaYHora = fechaYHora;
         this.paciente = paciente;
-        this.doctor = doctor;
+        this.profesional = p_profesional;
     }
 
     // Comportamientos del turno
@@ -37,25 +37,34 @@ public class Turno {
 
     private void agregarObservador() {
     };
+
     // #region
     public int getIdTurno() {
         return idTurno;
     }
+
     public EstadoTurno getEstado() {
         return estado;
     }
 
     public LocalDateTime getFechaYHora() {
-        return FechaYHora;
+        return fechaYHora;
     }
 
     public Paciente getPaciente() {
         return paciente;
     }
 
-    public Profesional getDoctor() {
-        return doctor;
+    public Profesional getProfesional() {
+        return profesional;
     }
-    // #endregion
 
+    // #endregion
+    @Override
+    public String toString() {
+        return "Turno { " +
+                "paciente = '" + paciente.getNombre() + '\'' +
+                ", profesional = '" + profesional.getNombre() + '\'' +
+                ", fecha = '" + this.getFechaYHora() + '}';
+    }
 }
