@@ -42,11 +42,7 @@ public class RepositorioPacientes {
     }
 
     public List<Paciente> listarPacientes() {
-        try {
-            return pacientes;
-        } catch (Exception e) {
-            throw new RuntimeException("Error al listar pacientes: " + e.getMessage());
-        }
+        return pacientes;
     }
 
 }
