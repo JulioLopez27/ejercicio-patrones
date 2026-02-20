@@ -28,7 +28,7 @@ public class FachadaSistema {
     }
 
     private void cargaDatosDummy() {
-        new CargaDatos(repoPacientes, repoProfesionales);
+        new CargaDatos(repoPacientes, repoProfesionales, repoTurnos);
     }
 
     // TURNOS
