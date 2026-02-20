@@ -3,14 +3,18 @@ package Utils;
 import Dominio.*;
 import Persistencia.RepositorioPacientes;
 import Persistencia.RepositorioProfesionales;
+import Persistencia.RepositorioTurnos;
 
 public class CargaDatos {
     private RepositorioPacientes repoPacientes;
     private RepositorioProfesionales repoProfesionales;
+    private RepositorioTurnos repoTurnos;
 
-    public CargaDatos(RepositorioPacientes p_repoPacientes, RepositorioProfesionales p_repoProfesionales) {
+    public CargaDatos(RepositorioPacientes p_repoPacientes, RepositorioProfesionales p_repoProfesionales,
+            RepositorioTurnos p_repoTurnos) {
         this.repoPacientes = p_repoPacientes;
         this.repoProfesionales = p_repoProfesionales;
+        this.repoTurnos = p_repoTurnos;
         cargarDatosTemporarios();
     }
 
@@ -26,6 +30,12 @@ public class CargaDatos {
     Profesional profesional4 = new Profesional(4, "Dra. Davis", "profesional4@", TipoEspecialidad.Ginecologo);
     Profesional profesional5 = new Profesional(5, "Dr. Wilson", "profesional5@", TipoEspecialidad.Reumatologo);
 
+    Turno turno1 = new Turno(paciente1, profesional1, ValidadorFechas.leerFecha("19-02-2026 12:00"));
+    Turno turno2 = new Turno(paciente2, profesional2, ValidadorFechas.leerFecha("19-02-2026 12:30"));
+    Turno turno3 = new Turno(paciente3, profesional3, ValidadorFechas.leerFecha("19-02-2026 12:40"));
+    Turno turno4 = new Turno(paciente4, profesional4, ValidadorFechas.leerFecha("19-02-2026 12:50"));
+    Turno turno5 = new Turno(paciente5, profesional5, ValidadorFechas.leerFecha("25-02-2026 01:00"));
+
     private void cargarDatosTemporarios() {
         repoPacientes.guardar(paciente1);
         repoPacientes.guardar(paciente2);
@@ -39,6 +49,11 @@ public class CargaDatos {
         repoProfesionales.guardar(profesional4);
         repoProfesionales.guardar(profesional5);
 
+        repoTurnos.guardar(turno1);
+        repoTurnos.guardar(turno2);
+        repoTurnos.guardar(turno3);
+        repoTurnos.guardar(turno4);
+        repoTurnos.guardar(turno5);
     }
 
 }
