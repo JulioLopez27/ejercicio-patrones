@@ -28,7 +28,7 @@ public class RepositorioTurnos {
         return Optional.empty();
     }
 
-    public List<Turno> obtenerTurnos() {
+    public List<Turno> listarTurnos() {
         return turnos;
     }
 
