@@ -22,6 +22,7 @@ public class ServicioTurno {
     // en caso de no encontrar el turno, devuelve TurnoNoEncontradoException
     private List<IPoliticaCreacionTurno> politicaCreacion;
     private List<IPoliticaCancelarTurno> politicasCancelacion;
+
     private ServicioPaciente servicioPaciente;
     private ServicioProfesional servicioProfesional;
     private RepositorioTurnos repoTurnos;
@@ -54,8 +55,7 @@ public class ServicioTurno {
                     "El profesional con id: " + IdProfesional + " no esta disponible en la fecha y hora solicitada.");
         }
 
-
-        //TODO: verificar politicas
+        // TODO: verificar politicas
         // aplica la politica de atencion
         // for (IPoliticaCreacionTurno politica : politicaCreacion) {
         // politica.validarCreacionTurno(paciente, profesional, fechaHora);
@@ -77,7 +77,10 @@ public class ServicioTurno {
             p.validarCancelacionTurno(turno);
         }
         turno.cancelar();
-        repoTurnos.guardar(turno);
+    }
+
+    public List<Turno> listarTurnos() {
+        return repoTurnos.listarTurnos();
     }
 
 }
