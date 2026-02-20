@@ -1,8 +1,10 @@
 package Presentation;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
+import Dominio.Profesional;
 import Dominio.Turno;
 import Services.FachadaSistema;
 import Utils.ValidadorFechas;
@@ -38,13 +40,19 @@ public class TurnoController {
         }
     }
 
-    public String cancelarTurno(int idTurno) {
+    public void cancelarTurno() {
+        System.out.println("\n === Cancelar turno===");
         try {
+
+            System.out.println("Ingrese el identificador del turno a cancelar");
+            int idTurno = sc.nextInt();
+            sc.nextLine();
             fachada.cancelarTurno(idTurno);
-            return "Turno cancelado correctamente";
-        } catch (Exception e) {
-            return e.getMessage();
+            System.out.println("Turno cancelado con éxito.");
+        } catch (RuntimeException re) {
+            System.out.println(re.getMessage());
         }
+
     }
 
     public void confirmarTurno() {
@@ -52,7 +60,15 @@ public class TurnoController {
     }
 
     public void listarTurnos() {
-        // Lógica para listar todos los turnos
+        System.out.println("\n === LISTA DE TURNOS ===");
+        List<Turno> turnos = fachada.listarTurnos();
+        if (turnos.isEmpty()) {
+            System.out.println("Aún no hay turnos registrados.");
+        } else {
+            for (Turno t : turnos) {
+                System.out.println(t);
+            }
+        }
     }
 
     // metodo auxuliar
