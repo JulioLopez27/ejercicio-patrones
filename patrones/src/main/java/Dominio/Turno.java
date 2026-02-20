@@ -3,6 +3,7 @@ package Dominio;
 import java.time.LocalDateTime;
 
 public class Turno {
+    private static int contadorId = 1;
     private int idTurno;
     private EstadoTurno estado;
     private LocalDateTime fechaYHora;
@@ -14,6 +15,7 @@ public class Turno {
         this.fechaYHora = fechaYHora;
         this.paciente = paciente;
         this.profesional = p_profesional;
+        this.idTurno = contadorId++;
     }
 
     // Comportamientos del turno
@@ -65,6 +67,9 @@ public class Turno {
         return "Turno { " +
                 "paciente = '" + paciente.getNombre() + '\'' +
                 ", profesional = '" + profesional.getNombre() + '\'' +
-                ", fecha = '" + this.getFechaYHora() + '}';
+                ", fecha = '" + this.getFechaYHora() + '\'' +
+                ", estado= '" + this.getEstado() +
+                '}';
+
     }
 }
