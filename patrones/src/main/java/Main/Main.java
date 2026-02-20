@@ -24,10 +24,12 @@ public class Main {
             System.out.println("1 - Alta Paciente");
             System.out.println("2 - Alta Profesional");
             System.out.println("3 - Reservar Turno");
-            System.out.println("4 - Listar Pacientes");
-            System.out.println("5 - Listar Profesionales");
-            System.out.println("6 - Listar especialidades");
-            System.out.println("10 - Salir");
+            System.out.println("4 - Cancelar turno");
+            System.out.println("7 - Listar Pacientes");
+            System.out.println("8 - Listar Profesionales");
+            System.out.println("9 - Listar Turnos");
+            System.out.println("10 - Listar especialidades");
+            System.out.println("11 - Salir");
             System.out.print("Opcion: ");
 
             int opcion = sc.nextInt();
@@ -40,13 +42,17 @@ public class Main {
 
                 case 3 -> turnoController.crearTurno();
 
-                case 4 -> pacienteController.listarPacientes();
+                case 4 -> turnoController.cancelarTurno();
 
-                case 5 -> profesionalController.listarProfesionales();
+                case 7 -> pacienteController.listarPacientes();
 
-                case 6 -> profesionalController.mostrarTiposEspecialidad();
+                case 8 -> profesionalController.listarProfesionales();
 
-                case 10 -> salir = true;
+                case 9 -> turnoController.listarTurnos();
+
+                case 10 -> profesionalController.mostrarTiposEspecialidad();
+
+                case 11 -> salir = true;
 
                 default -> System.out.println("Opcion invalida");
             }
