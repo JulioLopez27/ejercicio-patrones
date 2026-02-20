@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
-import Dominio.Profesional;
 import Dominio.Turno;
 import Services.FachadaSistema;
 import Utils.ValidadorFechas;
