@@ -28,23 +28,13 @@ public class Turno {
     public void reprogramar() {
         this.estado = estado.reprogramar();
     };
-
-    public void consultarEstado() {
-    };
-
-    private void notificarObservadores() {
-    };
-
-    private void agregarObservador() {
-    };
-
-    // #region
+    //getters
     public int getIdTurno() {
-        return idTurno;
+        return this.idTurno;
     }
 
     public EstadoTurno getEstado() {
-        return estado;
+        return this.estado;
     }
 
     public LocalDateTime getFechaYHora() {
@@ -52,14 +42,13 @@ public class Turno {
     }
 
     public Paciente getPaciente() {
-        return paciente;
+        return this.paciente;
     }
 
     public Profesional getProfesional() {
-        return profesional;
+        return this.profesional;
     }
 
-    // #endregion
     @Override
     public String toString() {
         return "Turno { " +
