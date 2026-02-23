@@ -2,11 +2,8 @@ package Dominio;
 
 import java.time.LocalDateTime;
 
-import Observer.Observable;
-
-public class Turno extends Observable{
-
-
+public class Turno {
+    private static int contadorId = 1;
     private int idTurno;
     private EstadoTurno estado;
     private LocalDateTime fechaYHora;
@@ -18,7 +15,7 @@ public class Turno extends Observable{
         this.fechaYHora = fechaYHora;
         this.paciente = paciente;
         this.profesional = p_profesional;
-        
+        this.idTurno = contadorId++;
     }
 
     // Comportamientos del turno
@@ -62,7 +59,10 @@ public class Turno extends Observable{
         return "Turno { " +
                 "paciente = '" + paciente.getNombre() + '\'' +
                 ", profesional = '" + profesional.getNombre() + '\'' +
-                ", fecha = '" + this.getFechaYHora() + '}';
+                ", fecha = '" + this.getFechaYHora() + '\'' +
+                ", estado= '" + this.getEstado() +
+                '}';
+
     }
 
     // Implementacion OBSERVER

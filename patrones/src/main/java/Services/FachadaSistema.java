@@ -28,17 +28,22 @@ public class FachadaSistema {
     }
 
     private void cargaDatosDummy() {
-        new CargaDatos(repoPacientes, repoProfesionales);
+        new CargaDatos(repoPacientes, repoProfesionales, repoTurnos);
     }
 
     // TURNOS
     public Turno crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
-       return servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
+        return servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
     }
 
     public void cancelarTurno(int idTurno) {
         servicioTurno.cancelarTurno(idTurno);
     }
+
+    public List<Turno> listarTurnos() {
+        return servicioTurno.listarTurnos();
+    }
+
     // -----------------
 
     // Pacientes---------------------------------------------------------------------------
@@ -46,7 +51,8 @@ public class FachadaSistema {
         Paciente p = servicioPaciente.altaPaciente(documento, nombre, correo, direccion);
         System.out.println("Paciente creado con el N° de socio: " + p.getNumSocio());
     }
-//TODO: refactorizar
+
+    // TODO: refactorizar
     public List<Paciente> listarPacientes() {
         List<Paciente> pacientes = servicioPaciente.listarPacientes();
         return pacientes;
