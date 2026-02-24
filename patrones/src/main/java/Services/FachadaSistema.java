@@ -7,12 +7,13 @@ import Dominio.Paciente;
 import Dominio.Profesional;
 import Dominio.TipoEspecialidad;
 import Dominio.Turno;
+import Observer.Observable;
 import Persistencia.RepositorioPacientes;
 import Persistencia.RepositorioProfesionales;
 import Persistencia.RepositorioTurnos;
 import Utils.CargaDatos;
 
-public class FachadaSistema {
+public class FachadaSistema extends Observable {
     // inicializacion de los repositorios
     private RepositorioPacientes repoPacientes = new RepositorioPacientes();
     private RepositorioProfesionales repoProfesionales = new RepositorioProfesionales();
@@ -33,7 +34,10 @@ public class FachadaSistema {
 
     // TURNOS
     public Turno crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
-        return servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
+        Turno t = servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
+        t.suscribir(t.getPaciente());
+        t.suscribir(t.getProfesional());
+        return t;
     }
 
     public void cancelarTurno(int idTurno) {

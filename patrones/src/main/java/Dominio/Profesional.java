@@ -1,10 +1,15 @@
 package Dominio;
 
 import java.util.List;
+
+import Observer.Observable;
+import Observer.Observable.Evento;
+import Observer.Observador;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Profesional {
+public class Profesional implements Observador{
     private static int idCounter = 1;
     private int idProfesional, dni;
     private String nombre, correo;
@@ -54,6 +59,16 @@ public class Profesional {
                 ", correo='" + correo + '\'' +
                 ", tipo=" + tipo +
                 '}';
+    }
+
+      @Override
+    public void update(Observable o, Evento e) {
+       if(e == Evento.Turno_Cancelado){
+        System.out.println("Profesional notificado: turno cancelado. ");
+       }
+       if(e == Evento.Turno_Reprogramado){
+        System.out.println("Profesional notificado: turno reprogramado. ");
+       }
     }
 
 }

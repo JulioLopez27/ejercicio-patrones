@@ -2,7 +2,10 @@ package Dominio;
 
 import java.time.LocalDateTime;
 
-public class Turno {
+import Observer.Observable;
+
+
+public class Turno extends Observable {
     private static int contadorId = 1;
     private int idTurno;
     private EstadoTurno estado;
@@ -25,12 +28,12 @@ public class Turno {
 
     public void cancelar() {
         this.estado = estado.cancelar();
-        this.notificar(Eventos.Turno_Cancelado);
+        this.notificar(Evento.Turno_Cancelado);
     };
 
     public void reprogramar() {
         this.estado = estado.reprogramar();
-        this.notificar(Eventos.Turno_Reprogramado);
+        this.notificar(Evento.Turno_Reprogramado);
     };
 
     // getters
@@ -65,7 +68,7 @@ public class Turno {
 
     }
 
-    // Implementacion OBSERVER
+ 
 
 
 }

@@ -11,7 +11,7 @@ public abstract class Observable {
         observadores = new ArrayList<>();
     }
 
-    public enum Eventos {
+    public enum Evento {
         Turno_Cancelado,
         Turno_Reprogramado,
     }
@@ -24,7 +24,7 @@ public abstract class Observable {
         this.observadores.remove(o);
     }
 
-    public void notificar(Observable.Eventos e) {
+    public void notificar(Observable.Evento e) {
         for(Observador o: observadores){
             o.update(this, e);
         }

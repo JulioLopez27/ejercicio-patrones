@@ -1,6 +1,10 @@
 package Dominio;
 
-public class Paciente {
+import Observer.Observable;
+import Observer.Observable.Evento;
+import Observer.Observador;
+
+public class Paciente implements Observador {
 
     private String nombre, correo, direccion;
     private int numSocio, documento; // num identificador unico
@@ -43,5 +47,15 @@ public class Paciente {
                 ", direccion='" + direccion + '\'' +
                 ", numSocio=" + numSocio +
                 '}';
+    }
+
+    @Override
+    public void update(Observable o, Evento e) {
+       if(e == Evento.Turno_Cancelado){
+        System.out.println("Paciente notificado: turno cancelado. ");
+       }
+       if(e == Evento.Turno_Reprogramado){
+        System.out.println("Paciente notificado: turno reprogramado. ");
+       }
     }
 }
