@@ -34,10 +34,6 @@ public class Profesional implements Observador{
         return true;
     }
 
-    public void verificiarDisponibilidad() {
-
-    }
-
     public void asignarTurno(Turno t) {
         this.turnos.add(t);
     }
