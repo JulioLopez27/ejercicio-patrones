@@ -5,13 +5,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import Dominio.Turno;
-import Observer.Observable;
-import Observer.Observable.Evento;
-import Observer.Observador;
 import Services.FachadaSistema;
 import Utils.ValidadorFechas;
 
-public class TurnoController implements Observador {
+public class TurnoController {
 
     private final FachadaSistema fachada;
     private final Scanner sc;
@@ -86,9 +83,5 @@ public class TurnoController implements Observador {
         }
     }
 
-    @Override
-    public void update(Observable o, Evento e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
-    }
+ 
 }
