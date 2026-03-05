@@ -31,7 +31,7 @@ public class Paciente implements Observador {
         return direccion;
     }
 
-    public int getNumSocio() {
+    public int getIdentificadorSis() {
         return numSocio;
     }
 
