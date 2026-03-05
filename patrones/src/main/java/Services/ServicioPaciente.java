@@ -29,7 +29,7 @@ public class ServicioPaciente {
 
     // TODO: implementar try-catch
     public List<Paciente> listarPacientes() {
-        return repoPacientes.listarPacientes();
+        return repoPacientes.getPacientes();
     }
 
     public Paciente buscarPorId(int numSocio) {

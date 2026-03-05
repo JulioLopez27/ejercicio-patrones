@@ -37,11 +37,7 @@ public class RepositorioPacientes {
         return Optional.empty();
     }
 
-    public List<Paciente> obtenerTodos() {
-        return pacientes;
-    }
-
-    public List<Paciente> listarPacientes() {
+    public List<Paciente> getPacientes() {
         return pacientes;
     }
 
