@@ -2,7 +2,10 @@ package Dominio;
 
 import java.time.LocalDateTime;
 
-public class Turno {
+import Observer.Observable;
+
+
+public class Turno extends Observable {
     private static int contadorId = 1;
     private int idTurno;
     private EstadoTurno estado;
@@ -25,28 +28,21 @@ public class Turno {
 
     public void cancelar() {
         this.estado = estado.cancelar();
+        this.notificar(Evento.Turno_Cancelado);
     };
 
     public void reprogramar() {
         this.estado = estado.reprogramar();
+        this.notificar(Evento.Turno_Reprogramado);
     };
 
-    public void consultarEstado() {
-    };
-
-    private void notificarObservadores() {
-    };
-
-    private void agregarObservador() {
-    };
-
-    // #region
+    // getters
     public int getIdTurno() {
-        return idTurno;
+        return this.idTurno;
     }
 
     public EstadoTurno getEstado() {
-        return estado;
+        return this.estado;
     }
 
     public LocalDateTime getFechaYHora() {
@@ -54,14 +50,13 @@ public class Turno {
     }
 
     public Paciente getPaciente() {
-        return paciente;
+        return this.paciente;
     }
 
     public Profesional getProfesional() {
-        return profesional;
+        return this.profesional;
     }
 
-    // #endregion
     @Override
     public String toString() {
         return "Turno { " +
@@ -72,4 +67,8 @@ public class Turno {
                 '}';
 
     }
+
+ 
+
+
 }

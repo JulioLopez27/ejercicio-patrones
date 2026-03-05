@@ -16,7 +16,7 @@ public class ProfesionalController {
         this.fachada = p_fachada;
         this.sc = p_sc;
     }
-
+//TODO: corregir return tipo
     public List<TipoEspecialidad> mostrarTiposEspecialidad() {
         List<TipoEspecialidad> tipos = fachada.obtenerTiposEspecialidad();
 

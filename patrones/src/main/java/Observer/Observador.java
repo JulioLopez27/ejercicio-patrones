@@ -1,5 +1,7 @@
 package Observer;
 
+import Observer.Observable.Evento;
+
 public interface Observador {
-    public void estadoCambiado();
+    public void update(Observable o, Evento e);
 }
