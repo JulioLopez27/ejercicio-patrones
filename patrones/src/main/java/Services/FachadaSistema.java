@@ -32,14 +32,14 @@ public class FachadaSistema extends Observable {
         new CargaDatos(repoPacientes, repoProfesionales, repoTurnos);
     }
 
-    // TURNOS
+    // TURNOS --------------------------------------------------------------------------------
     public Turno crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
         Turno t = servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
         t.suscribir(t.getPaciente());
         t.suscribir(t.getProfesional());
         return t;
     }
-
+    //TODO: Desuscribir
     public void cancelarTurno(int idTurno) {
         servicioTurno.cancelarTurno(idTurno);
     }
@@ -48,18 +48,16 @@ public class FachadaSistema extends Observable {
         return servicioTurno.listarTurnos();
     }
 
-    // -----------------
+    // --------------------------------------------------------------------------------------
 
-    // Pacientes---------------------------------------------------------------------------
+    // Pacientes-----------------------------------------------------------------------------
     public void altaPaciente(int documento, String nombre, String correo, String direccion) {
         Paciente p = servicioPaciente.altaPaciente(documento, nombre, correo, direccion);
-        System.out.println("Paciente creado con el N° de socio: " + p.getNumSocio());
+        System.out.println("Paciente creado con el N° de socio: " + p.getIdentificadorSis());
     }
 
-    // TODO: refactorizar
     public List<Paciente> listarPacientes() {
-        List<Paciente> pacientes = servicioPaciente.listarPacientes();
-        return pacientes;
+        return servicioPaciente.listarPacientes();
     }
 
     // Profesionales---------------------------------------------------------------------------------
