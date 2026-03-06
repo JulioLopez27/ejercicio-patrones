@@ -63,7 +63,7 @@ public class FachadaSistema extends Observable {
     // Profesionales---------------------------------------------------------------------------------
     public void altaProfesional(int documento, String nombre, String correo, TipoEspecialidad tipo) {
         Profesional p = servicioProfesional.altaProfesional(documento, nombre, correo, tipo);
-        System.out.println("Profesional creado con el identificador: " + p.getId());
+        System.out.println("Profesional creado con el identificador: " + p.getIdentificadorSis());
     }
 
     public List<Profesional> listarProfesionales() {
