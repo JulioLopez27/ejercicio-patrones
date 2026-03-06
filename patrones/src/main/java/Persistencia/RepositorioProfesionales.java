@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import Dominio.Profesional;
 import Dominio.TipoEspecialidad;
+import Exceptions.Persistencia.GuardadoException;
 import Persistencia.Interfaces.IRepositorioProfesional;
 
 public class RepositorioProfesionales implements IRepositorioProfesional {
@@ -17,7 +18,7 @@ public class RepositorioProfesionales implements IRepositorioProfesional {
         try {
             profesionales.add(p);
         } catch (Exception e) {
-            throw new RuntimeException("No se pudo registrar el profesional: " + e.getMessage());
+            throw new GuardadoException("No se pudo registrar el profesional: " + e.getMessage());
         }
     }
 

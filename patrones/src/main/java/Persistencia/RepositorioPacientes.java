@@ -1,6 +1,7 @@
 package Persistencia;
 
 import Dominio.Paciente;
+import Exceptions.Persistencia.GuardadoException;
 import Persistencia.Interfaces.IRepositorioPaciente;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ public class RepositorioPacientes implements IRepositorioPaciente {
         try {
             pacientes.add(p);
         } catch (Exception e) {
-            throw new RuntimeException("Error al guardar el paciente: " + e.getMessage());
+            throw new GuardadoException("Error al guardar el paciente: " + e.getMessage());
         }
     }
 
