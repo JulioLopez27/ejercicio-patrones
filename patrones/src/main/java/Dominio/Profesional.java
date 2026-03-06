@@ -9,16 +9,16 @@ import Observer.Observador;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Profesional implements Observador{
+public class Profesional implements Observador {
     private static int idCounter = 1;
-    private int idProfesional, dni;
+    private int idProfesional, documento;
     private String nombre, correo;
     private TipoEspecialidad tipo;
     protected List<Turno> turnos;
 
-    public Profesional(int p_dni, String p_nombre, String p_correo, TipoEspecialidad p_tipo) {
+    public Profesional(int p_documento, String p_nombre, String p_correo, TipoEspecialidad p_tipo) {
         this.idProfesional = idCounter++;
-        this.dni = p_dni;
+        this.documento = p_documento;
         this.nombre = p_nombre;
         this.correo = p_correo;
         this.tipo = p_tipo;
@@ -38,8 +38,12 @@ public class Profesional implements Observador{
         this.turnos.add(t);
     }
 
-    public int getId() {
+    public int getIdentificadorSis() {
         return this.idProfesional;
+    }
+
+    public int getDocumento() {
+        return this.documento;
     }
 
     public String getNombre() {
@@ -49,22 +53,22 @@ public class Profesional implements Observador{
     @Override
     public String toString() {
         return "Profesional { " +
-                "idProfesional=" + idProfesional +
-                ", dni=" + dni +
-                ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
-                ", tipo=" + tipo +
+                "idProfesional =" + idProfesional +
+                ", documento =" + documento +
+                ", nombre ='" + nombre + '\'' +
+                ", correo ='" + correo + '\'' +
+                ", tipo =" + tipo +
                 '}';
     }
 
-      @Override
+    @Override
     public void update(Observable o, Evento e) {
-       if(e == Evento.Turno_Cancelado){
-        System.out.println("Profesional notificado: turno cancelado. ");
-       }
-       if(e == Evento.Turno_Reprogramado){
-        System.out.println("Profesional notificado: turno reprogramado. ");
-       }
+        if (e == Evento.Turno_Cancelado) {
+            System.out.println("Profesional notificado: turno cancelado. ");
+        }
+        if (e == Evento.Turno_Reprogramado) {
+            System.out.println("Profesional notificado: turno reprogramado. ");
+        }
     }
 
 }

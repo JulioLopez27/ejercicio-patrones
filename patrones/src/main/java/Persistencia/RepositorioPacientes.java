@@ -1,12 +1,14 @@
 package Persistencia;
 
 import Dominio.Paciente;
+import Exceptions.Persistencia.GuardadoException;
+import Persistencia.Interfaces.IRepositorioPaciente;
 
 import java.util.Optional;
 import java.util.List;
 import java.util.ArrayList;
 
-public class RepositorioPacientes {
+public class RepositorioPacientes implements IRepositorioPaciente {
 
     private List<Paciente> pacientes = new ArrayList<>();
 
@@ -14,30 +16,26 @@ public class RepositorioPacientes {
         try {
             pacientes.add(p);
         } catch (Exception e) {
-            throw new RuntimeException("Error al guardar el paciente: " + e.getMessage());
+            throw new GuardadoException("Error al guardar el paciente: " + e.getMessage());
         }
     }
 
-    // TODO: optimizar a futuro
-    public Optional<Paciente> buscarPorId(int numSocio) {
-        for (Paciente p : pacientes) {
-            if (p.getNumSocio() == numSocio) {
-                return Optional.of(p);
-            }
-        }
-        return Optional.empty();
+    @Override
+    public Optional<Paciente> buscarPorId(int identificadorSis) {
+        return pacientes.stream()
+                .filter(p -> p.getIdentificadorSis() == identificadorSis)
+                .findFirst();
     }
 
+    @Override
     public Optional<Paciente> buscarPorDocumento(int documento) {
-        for (Paciente p : pacientes) {
-            if (p.getDocumento() == documento) {
-                return Optional.of(p);
-            }
-        }
-        return Optional.empty();
+        return pacientes.stream()
+                .filter(p -> p.getDocumento() == documento)
+                .findFirst();
     }
 
-    public List<Paciente> getPacientes() {
+    @Override
+    public List<Paciente> listar() {
         return pacientes;
     }
 

@@ -14,24 +14,24 @@ public class ServicioProfesional {
         this.repoProfesionales = p_repoProfesionales;
     }
 
-    public Profesional altaProfesional(int dni, String nombre, String correo, TipoEspecialidad tipo) {
-        if (repoProfesionales.buscarPorDni(dni).isPresent())
-            throw new RuntimeException("El profesional con el dni: " + dni + "ya existe.");
-        Profesional nuevoProfesional = new Profesional(dni, nombre, correo, tipo);
+    public Profesional altaProfesional(int documento, String nombre, String correo, TipoEspecialidad tipo) {
+        if (repoProfesionales.buscarPorDocumento(documento).isPresent())
+            throw new RuntimeException("El profesional con el dni: " + documento + "ya existe.");
+        Profesional nuevoProfesional = new Profesional(documento, nombre, correo, tipo);
         repoProfesionales.guardar(nuevoProfesional);
         return nuevoProfesional;
     }
 
     public List<Profesional> listarProfesionales() {
-            return repoProfesionales.listarProfesionales();
+            return repoProfesionales.listar();
     }
 
     public List<TipoEspecialidad> obtenerTiposEspecialidad() {
-        return repoProfesionales.obtenerTipoEspecialidad();
+        return repoProfesionales.listarTipoEspecialidad();
     }
 
     public Profesional buscarPorId(int id) {
-        return repoProfesionales.buscarPorId(id)
+        return repoProfesionales.buscarPorIdentificadorSis(id)
                 .orElseThrow(() -> new ProfesionalNoEncontradoException("Profesional con el id: " + id + " no encontrado."));
     }
 }

@@ -80,7 +80,7 @@ public class ServicioTurno {
     }
 
     public List<Turno> listarTurnos() {
-        return repoTurnos.listarTurnos();
+        return repoTurnos.listar();
     }
 
 }

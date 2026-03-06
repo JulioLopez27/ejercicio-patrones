@@ -29,12 +29,12 @@ public class ServicioPaciente {
 
     // TODO: implementar try-catch
     public List<Paciente> listarPacientes() {
-        return repoPacientes.getPacientes();
+        return repoPacientes.listar();
     }
 
-    public Paciente buscarPorId(int numSocio) {
-        return repoPacientes.buscarPorId(numSocio)
-                .orElseThrow(() -> new PacienteNoEncontradoException("número de socio: " + numSocio));
+    public Paciente buscarPorId(int identificadorSis) {
+        return repoPacientes.buscarPorId(identificadorSis)
+                .orElseThrow(() -> new PacienteNoEncontradoException("número de socio: " + identificadorSis));
     }
 
 }

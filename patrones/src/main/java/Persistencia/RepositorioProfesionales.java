@@ -6,42 +6,44 @@ import java.util.Optional;
 
 import Dominio.Profesional;
 import Dominio.TipoEspecialidad;
+import Exceptions.Persistencia.GuardadoException;
+import Persistencia.Interfaces.IRepositorioProfesional;
 
-public class RepositorioProfesionales {
+public class RepositorioProfesionales implements IRepositorioProfesional {
 
     private List<Profesional> profesionales = new ArrayList<>();
 
+    @Override
     public void guardar(Profesional p) {
         try {
             profesionales.add(p);
         } catch (Exception e) {
-            throw new RuntimeException("No se pudo registrar el profesional: " + e.getMessage());
+            throw new GuardadoException("No se pudo registrar el profesional: " + e.getMessage());
         }
     }
 
-    public Optional<Profesional> buscarPorId(int idProfesional) {
-        for (Profesional p : profesionales) {
-            if (p.getId() == idProfesional) {
-                return Optional.of(p);
-            }
-        }
-        return Optional.empty();
+    @Override
+    public Optional<Profesional> buscarPorIdentificadorSis(int id) {
+        return profesionales.stream()
+                .filter(p -> p.getIdentificadorSis() == id)
+                .findFirst();
     }
 
-    public Optional<Profesional> buscarPorDni(int dni) {
-        for (Profesional p : profesionales) {
-            if (p.getId() == dni) {
-                return Optional.of(p);
-            }
-        }
-        return Optional.empty();
+    @Override
+    public Optional<Profesional> buscarPorDocumento(int documento) {
+        return profesionales.stream()
+        .filter(p->p.getDocumento()==documento)
+        .findFirst();
     }
 
-    public List<Profesional> listarProfesionales() {
-        return profesionales;
-    }
-
-    public List<TipoEspecialidad> obtenerTipoEspecialidad() {
+    @Override
+    public List<TipoEspecialidad> listarTipoEspecialidad() {
         return List.of(TipoEspecialidad.values());
     }
+
+    @Override
+    public List<Profesional> listar() {
+        return this.profesionales;
+    }
+
 }
