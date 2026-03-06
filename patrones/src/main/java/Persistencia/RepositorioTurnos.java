@@ -2,7 +2,6 @@ package Persistencia;
 
 import Dominio.Turno;
 import Exceptions.Persistencia.GuardadoException;
-import Persistencia.Interfaces.IRepositorioProfesional;
 import Persistencia.Interfaces.IRepositorioTurno;
 
 import java.util.List;
