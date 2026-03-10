@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 public class ValidadorFechas {
     private static final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-    public ValidadorFechas() {}
+    private ValidadorFechas() {}
 
     public static LocalDateTime leerFecha(String input) {
         try {
