@@ -1,5 +1,6 @@
 package Utils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import Dominio.*;
@@ -38,16 +39,16 @@ public class CargaDatos {
                 new Profesional(4, "Dra. Davis", "profesional4@", TipoEspecialidad.Ginecologo),
                 new Profesional(5, "Dr. Wilson", "profesional5@", TipoEspecialidad.Reumatologo));
         profesionales.forEach(repoProfesionales::guardar);
-        Turno turno1 = new Turno(pacientes.get(0), profesionales.get(0), ValidadorFechas.leerFecha("19-02-2026 12:00"));
-        Turno turno2 = new Turno(pacientes.get(1), profesionales.get(1), ValidadorFechas.leerFecha("19-02-2026 12:30"));
-        Turno turno3 = new Turno(pacientes.get(2), profesionales.get(2), ValidadorFechas.leerFecha("25-02-2026 12:40"));
-        Turno turno4 = new Turno(pacientes.get(3), profesionales.get(3), ValidadorFechas.leerFecha("26-02-2026 12:50"));
-        Turno turno5 = new Turno(pacientes.get(4), profesionales.get(4), ValidadorFechas.leerFecha("27-02-2026 01:00"));
+        Turno turno1 = new Turno(pacientes.get(0), profesionales.get(0), LocalDateTime.now().plusDays(2));
+        Turno turno2 = new Turno(pacientes.get(1), profesionales.get(1), LocalDateTime.now().plusDays(3));
+        Turno turno3 = new Turno(pacientes.get(2), profesionales.get(2), LocalDateTime.now().plusDays(5));
+        Turno turno4 = new Turno(pacientes.get(3), profesionales.get(3), LocalDateTime.now().plusDays(9));
+        Turno turno5 = new Turno(pacientes.get(4), profesionales.get(4), LocalDateTime.now().plusDays(7));
 
         helpSuscribir(turno3);
         helpSuscribir(turno4);
         helpSuscribir(turno5);
-        
+
         List<Turno> turnos = List.of(turno1, turno2, turno3, turno4, turno5);
         turnos.forEach(repoTurnos::guardar);
     }
