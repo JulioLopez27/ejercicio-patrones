@@ -7,6 +7,7 @@ import Observer.Observable.Evento;
 import Observer.Observador;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Profesional implements Observador {
@@ -25,13 +26,32 @@ public class Profesional implements Observador {
         this.turnos = new ArrayList<>();
     }
 
-    public boolean estaDisponible(LocalDateTime fechaHora) {
+    public boolean tieneDisponible(LocalDateTime fechaHora) {
+        LocalDateTime inicioNuevo = fechaHora.truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime finNuevo = inicioNuevo.plusMinutes(Turno.getDuracionDelTurno());
+
         for (Turno t : turnos) {
-            if (t.getEstado().ocupaHorario() && t.getFechaYHora().equals(fechaHora)) {
-                return false;
+            if (t.getEstado().ocupaHorario()) {
+                LocalDateTime inicioExistente = t.getFechaInicio().truncatedTo(ChronoUnit.MINUTES);
+                LocalDateTime finExistente = inicioExistente.plusMinutes(Turno.getDuracionDelTurno());
+
+                if (inicioExistente.isBefore(finNuevo) && inicioNuevo.isBefore(finExistente)) {
+                    return false;
+                }
             }
         }
         return true;
+    }
+
+    // el método valida que los nuevos datos de fecha y hora no se choquen entre
+    // los datos de hora ya ingresados al turno
+    public boolean tieneDisponible(LocalDateTime nuevaFecha, Turno turnoActual) {
+        LocalDateTime inicioNuevaFecha = nuevaFecha.truncatedTo(ChronoUnit.MINUTES);
+        LocalDateTime finNuevaFecha = inicioNuevaFecha.plusMinutes(Turno.getDuracionDelTurno());
+        return turnos.stream()
+                .filter(t -> t != turnoActual)
+                .filter(t -> t.getEstado().ocupaHorario())
+                .noneMatch(t -> t.seSuperpone(inicioNuevaFecha, finNuevaFecha));
     }
 
     public void asignarTurno(Turno t) {
@@ -48,6 +68,10 @@ public class Profesional implements Observador {
 
     public String getNombre() {
         return this.nombre;
+    }
+
+    public List<Turno> getTurnos() {
+        return turnos;
     }
 
     @Override
