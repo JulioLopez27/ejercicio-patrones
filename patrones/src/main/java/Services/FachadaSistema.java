@@ -32,16 +32,26 @@ public class FachadaSistema extends Observable {
         new CargaDatos(repoPacientes, repoProfesionales, repoTurnos);
     }
 
-    // TURNOS --------------------------------------------------------------------------------
+    // TURNOS
+    // --------------------------------------------------------------------------------
     public Turno crearTurno(int numSocio, int idMedico, LocalDateTime fechaHora) {
         Turno t = servicioTurno.crearTurno(numSocio, idMedico, fechaHora);
         t.suscribir(t.getPaciente());
         t.suscribir(t.getProfesional());
         return t;
     }
-    //TODO: Desuscribir
+
+    public List<Turno> obtenerTurnosDelPaciente(int idPaciente) {
+        return servicioTurno.obtenerTurnosDelPaciente(idPaciente);
+    }
+
+    // TODO: Desuscribir
     public void cancelarTurno(int idTurno) {
         servicioTurno.cancelarTurno(idTurno);
+    }
+
+    public void reprogramarTurno(Turno t, LocalDateTime nf) {
+         this.servicioTurno.reprogramarTurno(t, nf);
     }
 
     public List<Turno> listarTurnos() {

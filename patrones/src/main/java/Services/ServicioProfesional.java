@@ -1,5 +1,6 @@
 package Services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import Dominio.Profesional;
@@ -23,7 +24,7 @@ public class ServicioProfesional {
     }
 
     public List<Profesional> listarProfesionales() {
-            return repoProfesionales.listar();
+        return repoProfesionales.listar();
     }
 
     public List<TipoEspecialidad> obtenerTiposEspecialidad() {
@@ -32,6 +33,11 @@ public class ServicioProfesional {
 
     public Profesional buscarPorId(int id) {
         return repoProfesionales.buscarPorIdentificadorSis(id)
-                .orElseThrow(() -> new ProfesionalNoEncontradoException("Profesional con el id: " + id + " no encontrado."));
+                .orElseThrow(
+                        () -> new ProfesionalNoEncontradoException("Profesional con el id: " + id + " no encontrado."));
+    }
+
+    public boolean disponibilidadDelProfesional(Profesional p, LocalDateTime fechaHora) {
+        return p.tieneDisponible(fechaHora);
     }
 }

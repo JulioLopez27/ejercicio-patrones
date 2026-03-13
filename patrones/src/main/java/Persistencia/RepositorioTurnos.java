@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class RepositorioTurnos implements IRepositorioTurno{
+public class RepositorioTurnos implements IRepositorioTurno {
 
     private List<Turno> turnos = new ArrayList<>();
 
@@ -19,6 +19,7 @@ public class RepositorioTurnos implements IRepositorioTurno{
             throw new GuardadoException("Error al guardar el turno. " + e);
         }
     }
+
     @Override
     public Optional<Turno> buscarPorId(int idTurno) {
         for (Turno t : turnos) {
@@ -31,6 +32,13 @@ public class RepositorioTurnos implements IRepositorioTurno{
 
     public List<Turno> listar() {
         return turnos;
+    }
+
+    @Override
+    public List<Turno> obtenerTurnosDelPaciente(int idPaciente) {
+        return turnos.stream()
+                .filter(t -> t.getPaciente().getIdentificadorSis() == idPaciente)
+                .toList();
     }
 
 }

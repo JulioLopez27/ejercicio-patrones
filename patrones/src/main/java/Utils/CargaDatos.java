@@ -1,11 +1,13 @@
 package Utils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import Dominio.*;
 import Persistencia.RepositorioPacientes;
 import Persistencia.RepositorioProfesionales;
 import Persistencia.RepositorioTurnos;
+import java.time.temporal.ChronoUnit;
 
 public class CargaDatos {
     private final RepositorioPacientes repoPacientes;
@@ -38,17 +40,18 @@ public class CargaDatos {
                 new Profesional(4, "Dra. Davis", "profesional4@", TipoEspecialidad.Ginecologo),
                 new Profesional(5, "Dr. Wilson", "profesional5@", TipoEspecialidad.Reumatologo));
         profesionales.forEach(repoProfesionales::guardar);
-        Turno turno1 = new Turno(pacientes.get(0), profesionales.get(0), ValidadorFechas.leerFecha("19-02-2026 12:00"));
-        Turno turno2 = new Turno(pacientes.get(1), profesionales.get(1), ValidadorFechas.leerFecha("19-02-2026 12:30"));
-        Turno turno3 = new Turno(pacientes.get(2), profesionales.get(2), ValidadorFechas.leerFecha("25-02-2026 12:40"));
-        Turno turno4 = new Turno(pacientes.get(3), profesionales.get(3), ValidadorFechas.leerFecha("26-02-2026 12:50"));
-        Turno turno5 = new Turno(pacientes.get(4), profesionales.get(4), ValidadorFechas.leerFecha("27-02-2026 01:00"));
 
-        helpSuscribir(turno3);
-        helpSuscribir(turno4);
-        helpSuscribir(turno5);
-        
-        List<Turno> turnos = List.of(turno1, turno2, turno3, turno4, turno5);
+        List<Turno> turnos = List.of(
+                new Turno(pacientes.get(0), profesionales.get(0), normalizado().plusDays(2)),
+                new Turno(pacientes.get(1), profesionales.get(1), normalizado().plusDays(3)),
+                new Turno(pacientes.get(2), profesionales.get(2), normalizado().plusDays(5)),
+                new Turno(pacientes.get(3), profesionales.get(3), normalizado().plusDays(9)),
+                new Turno(pacientes.get(4), profesionales.get(4), normalizado().plusDays(7)));
+
+        helpSuscribir(turnos.get(2));
+        helpSuscribir(turnos.get(3));
+        helpSuscribir(turnos.get(4));
+
         turnos.forEach(repoTurnos::guardar);
     }
 
@@ -56,4 +59,9 @@ public class CargaDatos {
         t.suscribir(t.getPaciente());
         t.suscribir(t.getProfesional());
     }
+
+    private static LocalDateTime normalizado() {
+        return LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+    }
+
 }
