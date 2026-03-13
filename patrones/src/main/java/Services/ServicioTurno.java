@@ -1,10 +1,13 @@
 package Services;
 
 import Dominio.Turno;
+import Dominio.EstadoTurno;
 import Dominio.Paciente;
 import Dominio.Profesional;
 import Exceptions.ProfesionalNoDisponibleException;
+import Exceptions.Dominio.LogicaException;
 import Exceptions.Dominio.TurnoNoEncontradoException;
+import Exceptions.Persistencia.PersistenciaException;
 import interfaces.Politicas.Atencion.PoliticaMutualista;
 import interfaces.Politicas.Atencion.PoliticaParticular;
 import interfaces.Politicas.Atencion.PoliticaUrgencia;
@@ -50,7 +53,7 @@ public class ServicioTurno {
         Profesional profesional = servicioProfesional.buscarPorId(IdProfesional);
 
         // Verificar si el profesional está disponible en la fecha y hora solicitada
-        if (!profesional.estaDisponible(fechaHora)) {
+        if (!profesional.tieneDisponible(fechaHora)) {
             throw new ProfesionalNoDisponibleException(
                     "El profesional con id: " + IdProfesional + " no esta disponible en la fecha y hora solicitada.");
         }
@@ -82,5 +85,38 @@ public class ServicioTurno {
     public List<Turno> listarTurnos() {
         return repoTurnos.listar();
     }
+
+    public List<Turno> obtenerTurnosDelPaciente(int idPaciente) throws LogicaException {
+        try {
+            List<Turno> turnos = repoTurnos.obtenerTurnosDelPaciente(idPaciente);
+            if (turnos.isEmpty())
+                throw new LogicaException("El paciente no tiene turnos activos. ");
+            // filtrado para mostrar los turnos activos&DelDia>
+            return this.filtradoActivoYFechaActual(turnos);
+
+        } catch (PersistenciaException e) {
+            throw new PersistenciaException("No fue posible obtener los turnos del paciente. ", e);
+        }
+    }
+
+    private List<Turno> filtradoActivoYFechaActual(List<Turno> turnos) {
+        return turnos.stream()
+                .filter(t -> t.getEstado() == EstadoTurno.CONFIRMADO)
+                .filter(t -> t.getFechaInicio().isAfter(LocalDateTime.now()))
+                .toList();
+    }
+
+    public void reprogramarTurno(Turno t, LocalDateTime nuevaFecha) throws LogicaException {
+        // validar disponibilidad del profesional
+        Profesional p = t.getProfesional();
+        if (!servicioProfesional.disponibilidadDelProfesional(p, nuevaFecha))
+            throw new LogicaException("El profesional no está disponible en la fecha ingresada.");
+        // setear fecha nueva
+        t.nuevaFecha(nuevaFecha);
+        t.reprogramar();
+
+    }
+
+    //TODO: crear un método aux para padronizar la fecha
 
 }
