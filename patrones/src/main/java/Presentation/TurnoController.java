@@ -17,8 +17,8 @@ public class TurnoController {
         this.fachada = p_fachada;
         this.sc = p_sc;
     }
-//TODO: separar UI de la logica
-    public void crearTurno() {
+
+    public void crearTurnoUI() {
         System.out.println("\n === CREAR TURNO ===");
         try {
             System.out.println("Ingrese documento de identificación del paciente: ");
@@ -30,8 +30,7 @@ public class TurnoController {
             sc.nextLine();
 
             LocalDateTime fechaHora = leerFechaValida();
-
-            Turno t = fachada.crearTurno(numSocio, idMedico, fechaHora);
+            Turno t = this.crearTurnoLogic(numSocio, idMedico, fechaHora);
             System.out.println("Turno creado con éxito: " + t);
         } catch (Exception e) {
             // Manejo de excepciones (por ejemplo, mostrar un mensaje de error al usuario)
@@ -39,18 +38,27 @@ public class TurnoController {
         }
     }
 
-    public void cancelarTurno() {
+    private Turno crearTurnoLogic(int numSocio,int idMedico,LocalDateTime fechaHora) {
+        return fachada.crearTurno(numSocio, idMedico, fechaHora);
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+    public void cancelarTurnoUI() {
         System.out.println("\n === Cancelar turno===");
         try {
             System.out.println("Ingrese el identificador del turno a cancelar");
             int idTurno = sc.nextInt();
             sc.nextLine();
-            fachada.cancelarTurno(idTurno);
+            this.cancelarTurnoLogica(idTurno);
             System.out.println("Turno cancelado con éxito.");
         } catch (RuntimeException re) {
             System.out.println(re.getMessage());
         }
 
+    }
+
+    private void cancelarTurnoLogica(int idTurno) {
+        fachada.cancelarTurno(idTurno);
     }
 
     // -------------------------------------------------------------------------------------
@@ -115,13 +123,17 @@ public class TurnoController {
     // ---------------------------------------------------------------------------
     public void listarTurnos() {
         System.out.println("\n === LISTA DE TURNOS ===");
-        List<Turno> turnos = fachada.listarTurnos();
-        if (turnos.isEmpty()) {
-            System.out.println("Aún no hay turnos registrados.");
-        } else {
-            for (Turno t : turnos) {
-                System.out.println(t);
+        try {
+            List<Turno> turnos = fachada.listarTurnos();
+            if (turnos.isEmpty()) {
+                System.out.println("Aún no hay turnos registrados.");
+            } else {
+                for (Turno t : turnos) {
+                    System.out.println(t);
+                }
             }
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
         }
     }
 
