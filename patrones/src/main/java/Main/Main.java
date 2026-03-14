@@ -41,9 +41,9 @@ public class Main {
 
                 case 2 -> profesionalController.altaProfesional();
 
-                case 3 -> turnoController.crearTurno();
+                case 3 -> turnoController.crearTurnoUI();
 
-                case 4 -> turnoController.cancelarTurno();
+                case 4 -> turnoController.cancelarTurnoUI();
 
                 case 5 -> turnoController.reprogramarTurnoUI();
 
